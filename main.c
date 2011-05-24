@@ -1,0 +1,26 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <goudp.h>
+
+char lookup[] = {
+  0xff, 0xff, 0xff, 0xff, 0x54, 0x53, 0x6f, 0x75, 
+  0x72, 0x63, 0x65, 0x20, 0x45, 0x6e, 0x67, 0x69, 
+  0x6e, 0x65, 0x20, 0x51, 0x75, 0x65, 0x72, 0x79, 
+  0x00 };
+
+int main(void) {
+  UDP u;
+  struct timespec ts;
+
+  ts.tv_sec = 0;
+  ts.tv_nsec = 100000;
+
+  udp4_create(&u);
+  udp4_findall();
+
+  while(1) {
+    udp4_broadcast_all(&u, 27015, lookup, sizeof(lookup));
+    nanosleep(&ts, NULL);
+  }
+
+}
